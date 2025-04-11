@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "69133f00-a2c5-402e-a908-e1f92c6a7b10",
+		"name": "API Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18948957"
+	},
+	"item": [
+		{
+			"name": "https://www-api.pos.com.my/api/getStateByPostcode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.equal(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    responseData.forEach(item => {",
+							"        pm.expect(item.stateNm).to.exist;",
+							"        pm.expect(item.stateCd).to.exist;",
+							"        pm.expect(item.city).to.exist;",
+							"        pm.expect(item.postCode).to.exist;",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"State code is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('array');",
+							"  responseData.forEach(function(item){",
+							"    pm.expect(item.stateCd).to.be.a('string').and.to.have.lengthOf.at.least(1, \"State code should not be empty\");",
+							"  });",
+							"});",
+							"",
+							"",
+							"pm.test(\"City is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('array');",
+							"  responseData.forEach(function(item) {",
+							"    pm.expect(item.city).to.be.a('string').and.to.have.lengthOf.at.least(1, \"City should not be empty\");",
+							"  });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Postcode is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    responseData.forEach(function(item) {",
+							"        pm.expect(item.postCode).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Postcode should not be empty\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "postCode",
+							"value": "26070",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www-api.pos.com.my/api/getStateByPostcode",
+					"protocol": "https",
+					"host": [
+						"www-api",
+						"pos",
+						"com",
+						"my"
+					],
+					"path": [
+						"api",
+						"getStateByPostcode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://www-api.pos.com.my/api/countries",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www-api.pos.com.my/api/countries",
+					"protocol": "https",
+					"host": [
+						"www-api",
+						"pos",
+						"com",
+						"my"
+					],
+					"path": [
+						"api",
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://www-api.pos.com.my/api/price",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "country",
+							"value": "Malaysia",
+							"type": "text"
+						},
+						{
+							"key": "postcodeFrom",
+							"value": "59200",
+							"type": "text"
+						},
+						{
+							"key": "postcodeTo",
+							"value": "26070",
+							"type": "text"
+						},
+						{
+							"key": "weight",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www-api.pos.com.my/api/price",
+					"protocol": "https",
+					"host": [
+						"www-api",
+						"pos",
+						"com",
+						"my"
+					],
+					"path": [
+						"api",
+						"price"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
